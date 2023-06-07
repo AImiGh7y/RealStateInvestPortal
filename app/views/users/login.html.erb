@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/css/login.css">
+
+<div class="login-page">
+  <div class="form">
+    <%= form_with url: login_path, local: true, html: {class: "login-form"} do |f| %>
+      <% if flash[:error] %>
+        <div id="error_explanation">
+          <p><%= flash[:error] %></p>
+        </div>
+      <% end %>
+
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+      <div class="field">
+        <%= f.email_field :email, class: "input-field", placeholder: "username", autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= f.password_field :password, class: "input-field", placeholder: "password" %>
+      </div>
+
+      <button type="submit">
+        Log In
+      </button>
+
+
+    <% end %>
+
+    <p class="message">Not registered? <a href="/users/new">Create an account</a></p>
+  </div>
+</div>

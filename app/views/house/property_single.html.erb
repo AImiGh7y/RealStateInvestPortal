@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EstateAgency Bootstrap Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Bootstrap CSS File -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+    <style>
+      li.justify-content-between::marker {
+      content: none;
+      }
+      .ui-autocomplete {
+            z-index: 9999;
+            }
+      li.page-item::marker {
+            content: none;
+          }
+    </style>
+  </head>
+  <body>
+    <div class="click-closed"></div>
+    <!--/ Form Search Star /-->
+    <div class="box-collapse">
+      <div class="title-box-d">
+        <h3 class="title-d">Procurar</h3>
+      </div>
+      <span class="close-box-collapse right-boxed ion-ios-close"></span>
+      <div class="box-collapse-wrap form"><%= form_tag search_houses_path, method: :get, autocomplete: "off", class:"form-a" do %>
+          <div class="row">
+            <div class="col-md-12 mb-2">
+              <div class="form-group">
+                <label for="search">Procurar</label><%= text_field_tag :search, params[:search], id: "search", class:"form-control form-control-lg form-control-a", spellcheck: false, placeholder: "Procurar Propriedade", data: { source: search_suggestions_path } %>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="situacao">Situacao</label><%= select_tag :situacao, options_for_select([['Alugar', 'alugar'], ['Comprar', 'comprar']], params[:situacao]), class:"form-control form-control-lg form-control-a", include_blank: false %>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="type">Tipo</label><%= select_tag :type, options_for_select([['Moradia', 'moradias'], ['Apartamento', 'apartamentos']], params[:type]), class:"form-control form-control-lg form-control-a",include_blank: false %>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label>Condicao</label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Novo', params[:Condicao]&.include?('Novo') %> Novo </label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Usado', params[:Condicao]&.include?('Usado') %> Usado </label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Recuperado', params[:Condicao]&.include?('Recuperado') %> Recuperado </label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Por recuperar', params[:Condicao]&.include?('Por recuperar') %> Por recuperar </label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="Total_quartos">Número de Quartos</label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '0', params[:Total_quartos]&.include?('0') %> T0 </label>
+                <label><%= check_box_tag 'Total_quartos[]', '1', params[:Total_quartos]&.include?('1') %> T1 </label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '2', params[:Total_quartos]&.include?('2') %> T2 </label>
+                <label><%= check_box_tag 'Total_quartos[]', '3', params[:Total_quartos]&.include?('3') %> T3 </label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '4', params[:Total_quartos]&.include?('4') %> T4 </label>
+                <label><%= check_box_tag 'Total_quartos[]', '5', params[:Total_quartos]&.include?('5') %> T5 </label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '6', params[:Total_quartos]&.include?('6') %> T6 </label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="Price">Preço Min.</label><%= text_field_tag :min_price, params[:min_price], class: 'form-control form-control-lg form-control-a',placeholder: "Preço Min."%>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="Price">Preço Max.</label><%= text_field_tag :max_price, params[:max_price], class: 'form-control form-control-lg form-control-a',placeholder: "Preço Max."%>
+              </div>
+            </div>
+            <a href="#" id="adv-search-btn" class="col-md-12">Advanced Options </i>
+          </a>
+          <div id="advanced-options">
+            <ul id="adv-filter">
+              <div class="form-group">
+                <label for="year">Ano Min.</label><%= text_field_tag :min_year, params[:min_year], class: 'form-control form-control-lg form-control-a',placeholder: "Ano Minimo"%>
+              </div>
+              <div class="form-group">
+                <label for="year">Ano Max.</label><%= text_field_tag :max_year, params[:max_year], class: 'form-control form-control-lg form-control-a',placeholder: "Ano Maximo"%>
+              </div>
+              <div class="form-group">
+                <label for="Acesso_Mobilidade_Reduzida">Acesso Mobilidade Reduzida &nbsp</label><%= select_tag :Acesso_Mobilidade_Reduzida, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Acesso_Mobilidade_Reduzida]), include_blank: true %> <br>
+                <label for="Arrecadação">Arrecadação &nbsp</label><%= select_tag :Arrecadação, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Arrecadação]), include_blank: true %> <br>
+                <label for="Elevador">Elevador &nbsp</label><%= select_tag :Elevador, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Elevador]), include_blank: true %> <br>
+                <label for="Garagem">Garagem &nbsp</label><%= select_tag :Garagem, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Garagem]), include_blank: true %> <br>
+                <label for="Estacionamento">Estacionamento &nbsp</label><%= select_tag :Estacionamento, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Estacionamento]), include_blank: true %> <br>
+                <label for="Jardim">Jardim &nbsp</label><%= select_tag :Jardim, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Jardim]), include_blank: true %> <br>
+                <label for="Lareira">Lareira &nbsp</label><%= select_tag :Lareira, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Lareira]), include_blank: true %> <br>
+                <label for="Recuperador_de_calor">Recuperador de calor &nbsp</label><%= select_tag :Recuperador_de_calor, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Recuperador_de_calor]), include_blank: true %> <br>
+                <label for="Vidros_duplos">Vidros Duplos &nbsp</label><%= select_tag :Vidros_duplos, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Vidros_duplos]), include_blank: true %> <br>
+                <label for="Varanda">Varanda &nbsp</label><%= select_tag :Varanda, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Varanda]), include_blank: true %> <br>
+                <label for="Terraço">Terraço &nbsp</label><%= select_tag :Terraço, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Terraço]), include_blank: true %> <br>
+                <label for="Suite">Suite &nbsp</label><%= select_tag :Suite, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Suite]), include_blank: true %> <br>
+                <label for="Segurança">Segurança &nbsp</label><%= select_tag :Segurança, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Segurança]), include_blank: true %> <br>
+                <label for="Piscina">Piscina &nbsp</label><%= select_tag :Piscina, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Piscina]), include_blank: true %> <br>
+                <label for="Painéis_Solares">Painéis Solares &nbsp</label><%= select_tag :Painéis_Solares, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Painéis_Solares]), include_blank: true %> <br>
+                <label for="Logradouro">Logradouro &nbsp</label><%= select_tag :Logradouro, options_for_select([['Sim', '1'], ['Nao', '0']], params[:Logradouro]), include_blank: true %>
+              </div>
+            </ul>
+          </div>
+          <div class="col-md-12"><%= submit_tag "Procurar Propriedade" , class:"btn btn-b"%> <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><%= javascript_include_tag 'search' %> </div>
+        </div>
+      <% end %> </div>
+  </div>
+  <!--/ Form Search End /-->
+  <!--/ Nav Star /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="index.html">Invest <span class="color-b">RealEstate</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map_districts.html">Dados</a>
+          </li>
+          <li class="nav-item dropdown">
+              <li class="nav-item">
+                <% if session[:user_id] %>
+                  <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Hi <%= User.find(session[:user_id]).name %>!</a>
+                <% end %>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/users/<%= session[:user_id] %>/favourites">Favorites</a>
+                <a class="dropdown-item" href="/users/<%= session[:user_id] %>/searches">Searches</a>
+                <% if current_user && current_user.role == 'admin' %>
+                  <a class="dropdown-item" href="/scripts">Update DB</a>
+                <% end %>
+                 <% if current_user && current_user.role == 'admin' %>
+                  <a class="dropdown-item" href="/users/index">Update Users</a>
+                <% end %>
+                </div>
+              </li>
+            </li>
+          <% if session[:user_id] %>
+            <li class="nav-item">
+              <%= form_tag logout_path, method: :delete do %>
+                <%= submit_tag "Logout", class: "btn btn-link nav-link" %>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Login", login_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Register", new_user_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!--/ Nav End /-->
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single"><%= @house.Localizacao%></h1>
+            <span class="color-text-a"><%= @house.Title%></span>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="property-grid.html">Propriedades</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <%= @house.Title%>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>  
+  <!--/ Intro Single End /-->
+  <!--/ Property Single Star /-->
+
+<style>
+.carousel-item-b {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 100%;
+}
+
+.image-wrapper {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  max-height: 100%;
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+</style>
+  <section class="property-single nav-arrow-b">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+        <% if @image_urls.present? %>
+        <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property" style="width: 1080px !important; height: 810px !important;">
+          <% @image_urls.each do |image| %>
+            <% if image.present? %>
+            <div class="carousel-item-b">
+              <div class="image-wrapper">
+              <img src="<%= image %>" alt="" style="width: 1080px !important; height: 810px !important;">
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+        </div>
+        <% end %>
+
+
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-md-5 col-lg-4">
+              <div class="property-price d-flex justify-content-center foo">
+                <div class="card-header-c d-flex">
+                  <div class="card-box-ico">
+                    <span class="ion-money">€</span>
+                  </div>
+                  <% if @house.Price.present? %>
+                    <div class="card-title-c align-self-center">
+                      <h5 class="title-c"><%= @house.Price %></h5>
+                    </div>
+                  <%end%>
+                </div>
+              </div>
+              <div class="property-summary" style="font-size: 10px;">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="title-box-d section-t4">
+                      <h3 class="title-d">Caracteristicas</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="summary-list" style="width: 275px;height: 300px;">
+                  <ul class="list">
+                    <li class="d-flex justify-content-between">
+                      <strong>Propriedade ID:</strong>
+                      <span><%= @house.Id%></span>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Tipo:</strong>
+                      <% if @house.Type == 'moradias' %>
+                        <span>Moradia</span>
+                      <% elsif @house.Type == 'apartamentos' %>
+                        <span>Apartamento</span>
+                      <%end%>
+                    </li>
+                    <li class="d-flex justify-content-between">
+                      <strong>Status:</strong>
+                      <% if @house.Situacao == 'alugar' %>
+                        <span>Alugar</span>
+                      <% elsif @house.Situacao == 'comprar' %>
+                        <span>Comprar</span>
+                      <%end%>
+                    </li>
+
+                    <% if @house.Situacao == 'alugar' %>
+                        <% if @averages_alugar_distrito.present? %>
+                          <li class="d-flex justify-content-between">
+                            <strong>Preço Médio do Distrito:</strong>
+                            <span><%= @averages_alugar_distrito%> €</span>
+                          </li>
+                        <%end%>
+                      <% elsif @house.Situacao == 'comprar' %>
+                        <% if @averages_comprar_distrito.present? %>
+                          <li class="d-flex justify-content-between">
+                            <strong>Preço Médio do Distrito:</strong>
+                            <span><%= @averages_comprar_distrito%> €</span>
+                          </li>
+                        <%end%>
+                    <%end%>
+
+
+                     <% if @house.Situacao == 'alugar' %>
+                        <% if @averages_alugar_concelho.present? %>
+                          <li class="d-flex justify-content-between">
+                            <strong>Preço Médio do Concelho:</strong>
+                            <span><%= @averages_alugar_concelho%> €</span>
+                          </li>
+                        <%end%>
+                      <% elsif @house.Situacao == 'comprar' %>
+                        <% if @averages_comprar_concelho.present? %>
+                          <li class="d-flex justify-content-between">
+                            <strong>Preço Médio do Concelho:</strong>
+                            <span><%= @averages_comprar_concelho%> €</span>
+                          </li>
+                        <%end%>
+                    <%end%>
+
+                     <% if @house.Situacao == 'alugar' %>
+                        <% if @averages_alugar_freguesia.present? %>
+                          <li class="d-flex justify-content-between">
+                            <strong>Preço Médio do Freguesia:</strong>
+                            <span><%= @averages_alugar_freguesia%> €</span>
+                          </li>
+                        <%end%>
+                      <% elsif @house.Situacao == 'comprar' %>
+                        <% if @averages_comprar_freguesia.present? %>
+                          <li class="d-flex justify-content-between">
+                            <strong>Preço Médio do Freguesia:</strong>
+                            <span><%= @averages_comprar_freguesia%> €</span>
+                          </li>
+                        <%end%>
+                    <%end%>
+
+
+                    <% if @price_per_Area.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Preço/Area:</strong>
+                        <span><%= @price_per_Area%> €</span>
+                      </li>
+                    <%end%>
+                    <% if @house.Ano_de_Construcao.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Condicao:</strong>
+                        <span><%= @house.Condicao%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Area_Util.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Area Util:</strong>
+                        <span><%= @house.Area_Util%>m
+                          <sup>2</sup>
+                        </span>
+                      </li>
+                    <%end%>
+                    <% if @house.Area_Bruta.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Area Bruta:</strong>
+                        <span><%= @house.Area_Bruta%>m
+                          <sup>2</sup>
+                        </span>
+                      </li>
+                    <%end%>
+                    <% if @house.Ano_de_Construcao.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Ano de Contrucao:</strong>
+                        <span><%= @house.Ano_de_Construcao%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Total_quartos != 0 && @house.Total_quartos.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Total Quartos:</strong>
+                        <span><%= @house.Total_quartos%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Casas_de_Banho != 0 && @house.Casas_de_Banho.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Total Casas de Banho:</strong>
+                        <span><%= @house.Casas_de_Banho%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Cozinhas != 0 && @house.Cozinhas.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Cozinhas:</strong>
+                        <span><%= @house.Cozinhas%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Escritórios != 0 && @house.Escritórios.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Escritórios:</strong>
+                        <span><%= @house.Escritórios%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Hall_de_Quartos != 0 && @house.Hall_de_Quartos.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Hall de Quartos:</strong>
+                        <span><%= @house.Hall_de_Quartos%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Sotão != 0 && @house.Sotão.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Sotão:</strong>
+                        <span><%= @house.Sotão%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Lavabo != 0 && @house.Lavabo.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Lavabo:</strong>
+                        <span><%= @house.Lavabo%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Marquise != 0 && @house.Marquise.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Marquise:</strong>
+                        <span><%= @house.Marquise%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Open_Space != 0 && @house.Open_Space.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Open Space:</strong>
+                        <span><%= @house.Open_Space%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Quarto_de_hóspedes != 0 && @house.Quarto_de_hóspedes.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Alpendre</strong>
+                        <span><%= @house.Quarto_de_hóspedes%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Salas_de_Jantar != 0 && @house.Salas_de_Jantar.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Salas de Jantar:</strong>
+                        <span><%= @house.Salas_de_Jantar%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Suites != 0 && @house.Suites.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Suites:</strong>
+                        <span><%= @house.Suites%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Varandas != 0 && @house.Varandas.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Varandas:</strong>
+                        <span><%= @house.Varandas%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Casa_de_banho_de_serviço != 0 && @house.Casa_de_banho_de_serviço.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Casa de banho de Serviço:</strong>
+                        <span><%= @house.Casa_de_banho_de_serviço%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Casa_de_Banho_Privativa != 0 && @house.Casa_de_Banho_Privativa.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Casa de Banho Privativa:</strong>
+                        <span><%= @house.Casa_de_Banho_Privativa%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Closet != 0 && @house.Closet.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Closet:</strong>
+                        <span><%= @house.Closet%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Corredor != 0 && @house.Corredor.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Corredor:</strong>
+                        <span><%= @house.Corredor%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Despensas != 0 && @house.Despensas.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Despensas:</strong>
+                        <span><%= @house.Despensas%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Hall_de_Entrada != 0 && @house.Hall_de_Entrada.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Hall de Entrada:</strong>
+                        <span><%= @house.Hall_de_Entrada%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Kitchenet != 0 && @house.Kitchenet.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Kitchenet:</strong>
+                        <span><%= @house.Kitchenet%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Lavandaria != '0' && @house.Lavandaria.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Lavandaria:</strong>
+                        <span><%= @house.Lavandaria%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Casa_de_Banho_Partilhada != 0 && @house.Casa_de_Banho_Partilhada.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Casas de Banho Partilhada:</strong>
+                        <span><%= @house.Casa_de_Banho_Partilhada%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Copas != 0 && @house.Copas.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Copas:</strong>
+                        <span><%= @house.Copas%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Salas != 0 && @house.Salas.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Salas:</strong>
+                        <span><%= @house.Salas%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Outras_Salas != 0 && @house.Outras_Salas.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Outras Salas:</strong>
+                        <span><%= @house.Outras_Salas%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Telhado_Verde != 0 && @house.Telhado_Verde.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Telhado Verde:</strong>
+                        <span><%= @house.Telhado_Verde%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Número_de_pisos != 0 && @house.Número_de_pisos.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Número de Pisos:</strong>
+                        <span><%= @house.Número_de_pisos%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Total_quartos_interiores != 0 && @house.Total_quartos_interiores.present?%>
+                      <li class="d-flex justify-content-between">
+                        <strong>Total Quartos Interiores:</strong>
+                        <span><%= @house.Total_quartos_interiores%></span>
+                      </li>
+                    <%end%>
+                    <% if @house.Certifacao_Energética.present? %>
+                      <li class="d-flex justify-content-between">
+                        <strong>Certificacao Energética:</strong>
+                        <span><%= @house.Certifacao_Energética%></span>
+                      </li>
+                    <%end%>
+                    <li class="d-flex justify-content-between">
+                      <strong>Localizacao:</strong>
+                      <span><%= @house.Localizacao%></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7 col-lg-7 section-md-t3">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Descrição</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="property-description">
+                <p class="description color-text-a">
+                  Data de Publicação: <%=@house.Data_Publicacao%><br>
+                  <a href="<%=@house.Url%>">Mais Informaçoes</a>
+                </p>
+                <p class="description color-text-a no-margin">
+                </p>
+              </div>
+              <div class="row section-t3">
+                <div class="col-sm-12">
+                  <div class="title-box-d">
+                    <h3 class="title-d">Facilidades</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="amenities-list color-text-a">
+                <ul class="list-a no-margin">
+                  <% amenities = false%>
+                  <% if @house.Acesso_Mobilidade_Reduzida === '1' %>
+                    <% amenities = true%>
+                    <li>Acesso Mobilidade Reduzida </li><br>
+                  <% end %>
+                  <% if @house.Arrecadação === '1' %>
+                    <% amenities = true%>
+                    <li>Arrecadacao </li><br>
+                  <% end %>
+                  <% if @house.Elevador === '1' %>
+                    <% amenities = true%>
+                    <li>Elevador </li><br>
+                  <% end %>
+                  <% if @house.Garagem === '1' %>
+                    <% amenities = true%>
+                    <li>Garagem </li><br>
+                  <% end %>
+                  <% if @house.Estacionamento === '1' %>
+                    <% amenities = true%>
+                    <li>Estacionamento </li><br>
+                  <% end %>
+                  <% if @house.Jardim === '1' %>
+                    <% amenities = true%>
+                    <li>Jardim </li><br>
+                  <% end %>
+                  <% if @house.Lareira === '1' %>
+                    <% amenities = true%>
+                    <li>Lareira </li><br>
+                  <% end %>
+                  <% if @house.Recuperador_de_calor === '1' %>
+                    <% amenities = true%>
+                    <li>Recuperador de Calor </li><br>
+                  <% end %>
+                  <% if @house.Vidros_Duplos === '1' %>
+                    <% amenities = true%>
+                    <li>Vidros Duplos </li><br>
+                  <% end %>
+                  <% if @house.Varanda === '1' %>
+                    <% amenities = true%>
+                    <li>Varanda </li><br>
+                  <% end %>
+                  <% if @house.Terraço === '1' %>
+                    <% amenities = true%>
+                    <li>Terraço </li><br>
+                  <% end %>
+                  <% if @house.Suite === '1' %>
+                    <% amenities = true%>
+                    <li>Suite </li><br>
+                  <% end %>
+                  <% if @house.Segurança === '1' %>
+                    <% amenities = true%>
+                    <li>Segurança </li><br>
+                  <% end %>
+                  <% if @house.Piscina === '1' %>
+                    <% amenities = true%>
+                    <li>Piscina </li><br>
+                  <% end %>
+                  <% if @house.Painéis_Solares === '1' %>
+                    <% amenities = true%>
+                    <li>Painéis Solares </li><br>
+                  <% end %>
+                  <% if @house.Logradouro === '1' %>
+                    <% amenities = true%>
+                    <li>Logradouro </li><br>
+                  <% end %>
+                  <% if amenities == false%>
+                    No Results
+                  <% end %>
+                </ul>
+              </div>
+            <% if current_user %>
+              <link rel="stylesheet" href="/css/heart.css">
+              <% if !current_user.favorite_houses.include?(@house) %>
+                <%= form_tag favorite_house_path(@house), method: :post, id: "favorite-form-#{@house.Id}" do %>
+                  <div class="click" id="click-<%= @house.Id %>">
+                    <span class="fa fa-heart-o" id="heart-<%= @house.Id %>" onclick="document.getElementById('favorite-form-<%= @house.Id %>').submit();"></span>
+                    <div class="ring" id="ring-<%= @house.Id %>"></div>
+                    <div class="ring2" id="ring2-<%= @house.Id %>"></div>
+                    <p class="info" id="info-<%= @house.Id %>">Added to favorites!</p>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= form_tag unfavorite_house_path(@house), method: :delete, id: "unfavorite-form-#{@house.Id}" do %>
+                  <div class="click click active active-2 active-3" id="click-<%= @house.Id %>" onclick="document.getElementById('unfavorite-form-<%= @house.Id %>').submit();">
+                    <span class="fa fa-heart" id="heart-<%= @house.Id %>"></span>
+                    <div class="ring" id="ring-<%= @house.Id %>"></div>
+                    <div class="ring2" id="ring2-<%= @house.Id %>"></div>
+                    <p class="info" id="info-<%= @house.Id %>">Removed from favorites!</p>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+
+       <% if @house.Situacao === 'comprar' %>
+        <div style="text-align: center;">
+          <span>
+            <div id="time"></div>
+            <div id="averagePlace"></div>
+          </span>
+          <input type="range" id="slider" min="1" max="5000" step="1" value="<%= @averages_alugar_freguesia || @averages_alugar_concelho || @averages_alugar_distrito || 0 %>" oninput="updateAverage()">
+        </div>
+        <%end%>
+
+        <script>
+          function updateAverage() {
+            var sliderValue = document.getElementById("slider").value;
+            document.getElementById("averagePlace").innerHTML = "Average Rent Location: " + sliderValue;
+        
+            // Update the value of average_place_a
+            average_place_a = sliderValue;
+        
+            // Recalculate time and update the display
+            var time = 0;
+            var average_place = house.Price;
+        
+            while (average_place > 0) {
+              average_place -= average_place_a;
+              time++;
+            }
+        
+            var years = Math.floor(time / 12);
+            var months = time % 12;
+        
+            document.getElementById("time").innerHTML = "Time: " + years + " years, " + months + " months";
+          }
+        </script>
+
+
+        <br>
+             
+
+        <% if @house.Latitude.present? && @house.Longitude.present? && %>
+          <div class="col-md-10 offset-md-1">
+            <ul class="nav nav-pills-a nav-pills mb-3 section-t3" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="pills-map-tab" data-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map"
+                aria-selected="false">Mapa</a>
+              </li>
+            </ul>
+            <style>
+              #map {
+                width: 100%;
+                height: 600px;
+              }
+            </style>
+
+            <div id="map"></div>
+            <%= javascript_include_tag 'leaflet' %>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
+                <div id="map"></div>
+              </div>
+            </div>
+          </div>
+        <%end%>
+        <div class="col-md-12">
+          <div class="row section-t3">
+            <div class="col-sm-12">
+              <div class="title-box-d">
+                <h3 class="title-d">Contact Agent</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4">
+              <img src="img/agent-4.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="property-agent">
+                <h4 class="title-agent">Anabella Geller</h4>
+                <p class="color-text-a">
+                  Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
+                  dui. Quisque velit nisi,
+                  pretium ut lacinia in, elementum id enim.
+                </p>
+                <ul class="list-unstyled">
+                  <li class="d-flex justify-content-between">
+                    <strong>Phone:</strong>
+                    <span class="color-text-a">(222) 4568932</span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Mobile:</strong>
+                    <span class="color-text-a">777 287 378 737</span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Email:</strong>
+                    <span class="color-text-a">annabella@example.com</span>
+                  </li>
+                  <li class="d-flex justify-content-between">
+                    <strong>Skype:</strong>
+                    <span class="color-text-a">Annabela.ge</span>
+                  </li>
+                </ul>
+                <div class="socials-a">
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <a href="#">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#">
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#">
+                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="#">
+                        <i class="fa fa-dribbble" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+              <div class="property-contact">
+                <form class="form-a">
+                  <div class="row">
+                    <div class="col-md-12 mb-1">
+                      <div class="form-group">
+                        <input type="text" class="form-control form-control-lg form-control-a" id="inputName"
+                          placeholder="Name *" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12 mb-1">
+                      <div class="form-group">
+                        <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1"
+                          placeholder="Email *" required>
+                      </div>
+                    </div>
+                    <div class="col-md-12 mb-1">
+                      <div class="form-group">
+                        <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45"
+                          rows="8" required></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <button type="submit" class="btn btn-a">Send Message</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Property Single End /-->
+  <!--/ footer Star /-->
+  <section class="section-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">EstateAgency</h3>
+            </div>
+            <div class="w-body-a">
+              <p class="w-text-a color-text-a">
+                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
+                sed aute irure.
+              </p>
+            </div>
+            <div class="w-footer-a">
+              <ul class="list-unstyled">
+                <li class="color-a">
+                  <span class="color-text-a">Phone .</span> contact@example.com</li>
+                <li class="color-a">
+                  <span class="color-text-a">Email .</span> +54 356 945234</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">The Company</h3>
+            </div>
+            <div class="w-body-a">
+              <div class="w-body-a">
+                <ul class="list-unstyled">
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Site Map</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Legal</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Agent Admin</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Careers</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Affiliate</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Privacy Policy</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">International sites</h3>
+            </div>
+            <div class="w-body-a">
+              <ul class="list-unstyled">
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Venezuela</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">China</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Hong Kong</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Argentina</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Singapore</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Philippines</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="nav-footer">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="#">Home</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">About</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Property</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Blog</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="socials-a">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-dribbble" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="copyright-footer">
+            <p class="copyright color-text-a">
+              &copy; Copyright
+              <span class="color-a">EstateAgency</span> All Rights Reserved.
+            </p>
+          </div>
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer End /-->
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/popper/popper.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+  <script>
+    var house = <%= raw @house.to_json %>;
+
+
+    var mymap = L.map('map').setView([house.Latitude, house.Longitude], 16);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    maxZoom: 18
+      }).addTo(mymap);
+
+      var marker = L.marker([house.Latitude, house.Longitude], {
+    icon: L.icon({
+      iconUrl: '/img/marker-icon.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [0, -35]
+    })
+      });
+
+      var popupContent = "<a href='" + house.Url + "'>" + house.Title + "</a>";
+      marker.bindPopup(popupContent).addTo(mymap);
+
+      if (house.Situacao == "comprar") {
+        var averagesAlugarFreguesia = <%= @averages_alugar_freguesia || 0 %>;
+        var averagesAlugarConcelho = <%= @averages_alugar_concelho || 0 %>;
+        var averagesAlugarDistrito = <%= @averages_alugar_distrito || 0 %>;
+        var averagesComprarFreguesia = <%= @averages_comprar_freguesia || 0 %>;
+        var averagesComprarConcelho = <%= @averages_comprar_concelho || 0 %>;
+        var averagesComprarDistrito = <%= @averages_comprar_distrito || 0 %>;
+
+        if (averagesComprarFreguesia != 0 && averagesAlugarFreguesia != 0) {
+          average_place_a = averagesAlugarFreguesia;
+        } else if (averagesComprarConcelho != 0 && averagesAlugarConcelho != 0) {
+          average_place_a = averagesAlugarConcelho;
+        } else {
+          average_place_a = averagesAlugarDistrito;
+        }
+
+        var time = 0;
+        var average_place = house.Price;
+
+        while (average_place > 0) {
+          average_place -= average_place_a;
+          time++;
+        }
+
+        var years = Math.floor(time / 12);
+        var months = time % 12;
+
+        document.getElementById("time").innerHTML = "Average Rent Location: " + average_place_a + "<br>" + "Time: " + years + " years, " + months + " months";
+      }
+
+      
+
+</script>
+  <script>
+    $('#advanced-options').hide();
+    // toggle advanced options
+    $('#adv-search-btn').click(function() {
+      $('#advanced-options').slideToggle("fast");
+    });
+    $('#adv-filter li').click(function() {
+      $('#adv-filter li.active').removeClass('active');
+      $(this).addClass('active');
+    });
+
+
+    var heart = document.getElementById('heart-<%= @house.Id %>');
+    var click = document.getElementById('click-<%= @house.Id %>');
+    var ring = document.getElementById('ring-<%= @house.Id %>');
+    var ring2 = document.getElementById('ring2-<%= @house.Id %>');
+    var info = document.getElementById('info-<%= @house.Id %>');
+
+    click.addEventListener('click', function() {
+      if (heart.classList.contains("fa-heart")) {
+    click.classList.remove('active');
+    setTimeout(function() {
+      click.classList.remove('active-2');
+    }, 30);
+    click.classList.remove('active-3');
+    setTimeout(function() {
+      heart.classList.remove('fa-heart');
+      heart.classList.add('fa-heart-o');
+    }, 15);
+      } else {
+    click.classList.add('active');
+    click.classList.add('active-2');
+    setTimeout(function() {
+      heart.classList.add('fa-heart');
+      heart.classList.remove('fa-heart-o');
+    }, 150);
+    setTimeout(function() {
+      click.classList.add('active-3');
+    }, 150);
+    info.classList.add('info-tog');
+    setTimeout(function(){
+      info.classList.remove('info-tog');
+    },1000);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,698 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EstateAgency Bootstrap Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Bootstrap CSS File -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+    <style>
+      .ui-autocomplete {
+        z-index: 9999;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="click-closed"></div>
+   <!--/ Form Search Star /-->
+    <div class="box-collapse">
+      <div class="title-box-d">
+        <h3 class="title-d">Procurar</h3>
+      </div>
+      <span class="close-box-collapse right-boxed ion-ios-close"></span>
+      <div class="box-collapse-wrap form"><%= form_tag search_houses_path, method: :get, autocomplete: "off", class:"form-a" do %>
+          <div class="row">
+            <div class="col-md-12 mb-2">
+              <div class="form-group">
+                <label for="search">Procurar</label><%= text_field_tag :search, params[:search], id: "search", class:"form-control form-control-lg form-control-a", spellcheck: false, placeholder: "Procurar Propriedade", data: { source: search_suggestions_path } %>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="situacao">Situacao</label><%= select_tag :situacao, options_for_select([['Alugar', 'alugar'], ['Comprar', 'comprar']], params[:situacao]), class:"form-control form-control-lg form-control-a", include_blank: false %>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="type">Tipo</label><%= select_tag :type, options_for_select([['Moradia', 'moradias'], ['Apartamento', 'apartamentos']], params[:type]), class:"form-control form-control-lg form-control-a",include_blank: false %>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label>Condicao</label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Novo', params[:Condicao]&.include?('Novo') %> Novo </label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Usado', params[:Condicao]&.include?('Usado') %> Usado </label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Recuperado', params[:Condicao]&.include?('Recuperado') %> Recuperado </label>
+                <br>
+                <label><%= check_box_tag 'Condicao[]', 'Por recuperar', params[:Condicao]&.include?('Por recuperar') %> Por recuperar </label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="Total_quartos">Número de Quartos</label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '0', params[:Total_quartos]&.include?('0') %> T0 </label>
+                <label><%= check_box_tag 'Total_quartos[]', '1', params[:Total_quartos]&.include?('1') %> T1 </label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '2', params[:Total_quartos]&.include?('2') %> T2 </label>
+                <label><%= check_box_tag 'Total_quartos[]', '3', params[:Total_quartos]&.include?('3') %> T3 </label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '4', params[:Total_quartos]&.include?('4') %> T4 </label>
+                <label><%= check_box_tag 'Total_quartos[]', '5', params[:Total_quartos]&.include?('5') %> T5 </label>
+                <br>
+                <label><%= check_box_tag 'Total_quartos[]', '6', params[:Total_quartos]&.include?('6') %> T6 </label>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="Price">Preço Min.</label><%= text_field_tag :min_price, params[:min_price], class: 'form-control form-control-lg form-control-a',placeholder: "Preço Min."%>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="form-group">
+                <label for="Price">Preço Max.</label><%= text_field_tag :max_price, params[:max_price], class: 'form-control form-control-lg form-control-a',placeholder: "Preço Max."%>
+              </div>
+            </div>
+            <a href="#" id="adv-search-btn" class="col-md-12">Advanced Options </i>
+          </a>
+          <div id="advanced-options">
+            <ul id="adv-filter">
+              <div class="form-group">
+                <label for="year">Ano Min.</label><%= text_field_tag :min_year, params[:min_year], class: 'form-control form-control-lg form-control-a',placeholder: "Ano Minimo"%>
+              </div>
+              <div class="form-group">
+                <label for="year">Ano Max.</label><%= text_field_tag :max_year, params[:max_year], class: 'form-control form-control-lg form-control-a',placeholder: "Ano Maximo"%>
+              </div>
+              <div class="form-group">
+                <label for="Acesso_Mobilidade_Reduzida">Acesso Mobilidade Reduzida &nbsp</label><%= select_tag :Acesso_Mobilidade_Reduzida, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Acesso_Mobilidade_Reduzida]), include_blank: true %> <br>
+                <label for="Arrecadação">Arrecadação &nbsp</label><%= select_tag :Arrecadação, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Arrecadação]), include_blank: true %> <br>
+                <label for="Elevador">Elevador &nbsp</label><%= select_tag :Elevador, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Elevador]), include_blank: true %> <br>
+                <label for="Garagem">Garagem &nbsp</label><%= select_tag :Garagem, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Garagem]), include_blank: true %> <br>
+                <label for="Estacionamento">Estacionamento &nbsp</label><%= select_tag :Estacionamento, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Estacionamento]), include_blank: true %> <br>
+                <label for="Jardim">Jardim &nbsp</label><%= select_tag :Jardim, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Jardim]), include_blank: true %> <br>
+                <label for="Lareira">Lareira &nbsp</label><%= select_tag :Lareira, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Lareira]), include_blank: true %> <br>
+                <label for="Recuperador_de_calor">Recuperador de calor &nbsp</label><%= select_tag :Recuperador_de_calor, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Recuperador_de_calor]), include_blank: true %> <br>
+                <label for="Vidros_duplos">Vidros Duplos &nbsp</label><%= select_tag :Vidros_duplos, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Vidros_duplos]), include_blank: true %> <br>
+                <label for="Varanda">Varanda &nbsp</label><%= select_tag :Varanda, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Varanda]), include_blank: true %> <br>
+                <label for="Terraço">Terraço &nbsp</label><%= select_tag :Terraço, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Terraço]), include_blank: true %> <br>
+                <label for="Suite">Suite &nbsp</label><%= select_tag :Suite, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Suite]), include_blank: true %> <br>
+                <label for="Segurança">Segurança &nbsp</label><%= select_tag :Segurança, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Segurança]), include_blank: true %> <br>
+                <label for="Piscina">Piscina &nbsp</label><%= select_tag :Piscina, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Piscina]), include_blank: true %> <br>
+                <label for="Painéis_Solares">Painéis Solares &nbsp</label><%= select_tag :Painéis_Solares, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Painéis_Solares]), include_blank: true %> <br>
+                <label for="Logradouro">Logradouro &nbsp</label><%= select_tag :Logradouro, options_for_select([['Sim', 'TRUE'], ['Nao', '0']], params[:Logradouro]), include_blank: true %>
+              </div>
+            </ul>
+          </div>
+          <div class="col-md-12"><%= submit_tag "Procurar Propriedade" , class:"btn btn-b"%> <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><%= javascript_include_tag 'search' %> </div>
+        </div>
+      <% end %> </div>
+  </div>
+  <!--/ Form Search End /-->
+ <!--/ Nav Star /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="index.html">Invest <span class="color-b">RealEstate</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map_districts.html">Dados</a>
+          </li>
+          <li class="nav-item dropdown">
+            <li class="nav-item">
+              <% if session[:user_id] %>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">Hi <%= User.find(session[:user_id]).name %>!</a>
+              <% end %>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/users/<%= session[:user_id] %>/favourites">Favorites</a>
+                <a class="dropdown-item" href="/users/<%= session[:user_id] %>/searches">Searches</a>
+                <% if current_user && current_user.role == 'admin' %>
+                  <a class="dropdown-item" href="/scripts">Update DB</a>
+                <% end %>
+                <% if current_user && current_user.role == 'admin' %>
+                  <a class="dropdown-item" href="/users/index">Update Users</a>
+                <% end %>
+              </div>
+            </li>
+          </li>
+          <% if session[:user_id] %>
+            <li class="nav-item">
+              <%= form_tag logout_path, method: :delete do %>
+                <%= submit_tag "Logout", class: "btn btn-link nav-link" %>
+              <% end %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Login", login_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Register", new_user_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!--/ Nav End /-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+      <style>
+      #map {
+        width: 75%;
+        height: 600px;
+        margin: 0 auto;
+      }
+      .district {
+          fill: #3388ff;
+          stroke: #fff;
+          stroke-width: 2;
+          opacity: 0.7;
+        }
+        .city {
+          fill: #ff8800;
+          stroke: #fff;
+          stroke-width: 2;
+          opacity: 0.7;
+        }
+    </style>
+    <%= javascript_include_tag 'leaflet' %>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+   <style>
+      .dropdown {
+        margin-left: 20px; /* Adjust the value as needed */
+      }
+  </style>
+
+    <!-- Add a dropdown menu or a list of buttons for layer selection -->
+    <select id="layerSelect" class="dropdown">
+      <option value="normal" selected>Normal</option>
+      <option value="distritos">Distritos</option>
+      <option value="concelhos">Concelhos</option>
+      <option value="freguesias">Freguesias</option>
+    </select>
+
+    <br>
+    <br>
+
+    <select id="layerType" class="dropdown">
+      <option value="RentBuym2" selected>Rent/Buy Ratio</option>
+      <option value="Buym2">Buy/m2</option>
+      <option value="Rentm2">Rent/m2</option>
+    </select>
+
+
+
+    <div id="map"></div>
+
+  
+      <script>
+
+      var mymap = L.map('map').setView([38.736946, -9.142685], 6);
+      var myResults = <%= results.to_json.html_safe %>;
+      console.log(myResults)
+
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+       attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+       maxZoom: 18
+      }).addTo(mymap);
+
+      var distritosData, concelhosData, freguesiasData;
+
+      distritosData = L.geoJSON(null, {}); 
+      concelhosData = L.geoJSON(null, {});
+      freguesiasData = L.geoJSON(null, {});
+
+      // Get the table body element
+      var tableBody = document.getElementById("distritosTableBody");
+
+
+      // Define combined function for style and event listeners
+       async function styleAndEventListeners(feature, layer, typeLayer, selectedType) {
+
+        layer.setStyle(null);
+        
+        switch (typeLayer) {
+          case "distrito":
+           var typefeature = feature.properties.NAME_1;
+           break;
+          case "concelho":
+           var typefeature = feature.properties.NAME_2;
+           break;
+          case "freguesia":
+           var typefeature = feature.properties.NAME_3;
+           break;
+          default:
+           typefeature = null;
+           break;
+        }
+        
+        let result_map, averagePrice_a, averagePrice_c;
+
+        for (const result of myResults) {
+          if (result.typeLayer === typeLayer && result.typefeature === typefeature) {
+            switch(selectedType) {
+              case "RentBuym2":
+                result_map = result.results_valuesRB2;
+                break;
+              case "Buym2":
+                result_map = result.results_valuesB2;
+                break;
+              case "Rentm2":
+                result_map = result.results_valuesR2;
+                break;
+              default:
+                console.error(`Invalid selectedType: ${selectedType}`);
+                return;
+            }
+
+            averagePrice_a = result.averagePrice_a;
+            averagePrice_c = result.averagePrice_c;
+            break;
+          }
+        }
+
+        paintlayer(result_map, typeLayer, layer, typefeature, averagePrice_a, averagePrice_c);
+
+      }
+
+      var reset_map = 0;
+
+
+      function paintlayer(result_map, typeLayer, layer, typefeature, averagePrice_a, averagePrice_c){
+        
+
+        if (result_map === null) {
+          result_map = 0;
+        } else if (result_map > 1) {
+          result_map = 1;
+        }
+
+        layer.setStyle({
+          color: "white",
+          fillColor: result_map !== null ? colorScale(result_map) : "transparent", // Set to transparent if there are no results
+          fillOpacity: 0.75
+        });
+
+        layer.on({
+          mouseover: function (e) {
+            // Access the global variables here
+            layer.bindPopup(
+              typeLayer +
+              ": " +
+              typefeature +
+              "<br>Average Price Alugar: " +
+              averagePrice_a +
+              "<br>Average Price Comprar: " +
+              averagePrice_c, {
+                offset: [0, -10] // adjust the offset here to position the popup
+              }).openPopup();
+          },
+          mouseout: function (e) {
+            layer.closePopup();
+          },
+        });
+
+
+        if (typeLayer == "distrito" && reset_map==0) {
+          layer.addTo(mymap);
+          reset_map = 1;
+        }
+      }
+
+
+
+      // Define a function to load GeoJSON data, add it to a layer, and return a promise
+      function loadGeoJSONAndProcess(layer, path, type) {
+        return new Promise(function (resolve, reject) {
+          $.getJSON(path, function (data) {
+          layer.clearLayers();
+          layer.addData(data); // Add data to existing layer
+          layer.eachLayer(function (l) {
+            styleAndEventListeners(l.feature, l, type, selectedType);  
+            layer.setStyle(null);
+          });
+          resolve();
+              }).fail(function (error) {
+          reject(error);
+              });
+        });
+      }
+
+      function loadGeoJSONData(data, filePath, type, selectedType) {
+        return loadGeoJSONAndProcess(data, filePath, type)
+          .then(function() {
+            console.log("Finished processing " + type + "s");
+          })
+          .catch(function(error) {
+            console.error("Error processing " + type + "s:", error);
+          });
+      }
+
+      
+      var selectedType = "RentBuym2"
+
+      loadGeoJSONData(distritosData, "geojson/ContinenteDistritos.geojson", "distrito", selectedType);
+      loadGeoJSONData(concelhosData, "geojson/ContinenteConcelhos.geojson", "concelho", selectedType);
+      loadGeoJSONData(freguesiasData, "geojson/ContinenteFreguesias.geojson", "freguesia", selectedType);
+
+      var selectedLayer = "normal"; // Variable to store the selected layer
+      updateDisplayedLayer();
+
+      document.getElementById('layerSelect').addEventListener('change', function() {
+        selectedLayer = this.value; // Get the selected layer from the dropdown menu
+        updateDisplayedLayer(); // Call a function to update the displayed layer
+      });
+
+      function zoom_map(){
+        mymap.addLayer(distritosData);
+        mymap.on('zoomend', function() {
+          var zoomLevel = mymap.getZoom();
+          if (selectedLayer === 'normal') {
+            if (zoomLevel <= 8) {
+              mymap.removeLayer(concelhosData);
+              mymap.removeLayer(freguesiasData);
+              mymap.addLayer(distritosData);
+            } else if (zoomLevel > 8 && zoomLevel <= 10) {
+              mymap.removeLayer(distritosData);
+              mymap.removeLayer(freguesiasData);
+              mymap.addLayer(concelhosData);
+            } else if (zoomLevel > 10) {
+              mymap.removeLayer(distritosData);
+              mymap.removeLayer(concelhosData);
+              mymap.addLayer(freguesiasData);
+            }
+          }
+        });
+      }
+
+    function updateDisplayedLayer() {
+      // Remove all layers from the map
+      mymap.removeLayer(distritosData);
+      mymap.removeLayer(freguesiasData);
+      mymap.removeLayer(concelhosData);
+
+      // Add the selected layer to the map based on the value of the selectedLayer variable
+      switch (selectedLayer) {
+        case 'distritos':
+          mymap.addLayer(distritosData);
+          break;
+        case 'freguesias':
+          mymap.addLayer(freguesiasData);
+          break;
+        case 'concelhos':
+          mymap.addLayer(concelhosData);
+          break;
+        case 'normal':
+          zoom_map();
+          break;
+        default:
+          // Handle default case if needed
+          break;
+      }
+    }
+
+
+    document.getElementById('layerType').addEventListener('change', function() {
+      selectedType = this.value; // Get the selected layer from the dropdown menu
+      updateLayerData(selectedType); // Call a function to update the layers
+    });
+
+    function updateLayerData(selectedType) {
+      loadGeoJSONData(distritosData, "geojson/ContinenteDistritos.geojson", "distrito", selectedType);
+      loadGeoJSONData(concelhosData, "geojson/ContinenteConcelhos.geojson", "concelho", selectedType);
+      loadGeoJSONData(freguesiasData, "geojson/ContinenteFreguesias.geojson", "freguesia", selectedType);
+    }
+
+    
+    function colorScale(value) {
+      // Define an array of colors
+      var colors = ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"];
+      
+      if (value === null) {
+        return "transparent";
+      }
+      
+      // Define a linear scale to map values to colors
+      var scale = d3.scaleLinear()
+        .domain([0, 1]) // Input domain
+        .range([0, colors.length - 1]); // Output range
+      // Use the scale to get the index of the color in the array
+      var colorIndex = Math.round(scale(value));
+      // Return the color at the specified index
+      return colors[colorIndex];
+    }
+
+
+
+    </script>
+  <!--/ footer Star /-->
+  <section class="section-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">EstateAgency</h3>
+            </div>
+            <div class="w-body-a">
+              <p class="w-text-a color-text-a"> Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis sed aute irure. </p>
+            </div>
+            <div class="w-footer-a">
+              <ul class="list-unstyled">
+                <li class="color-a">
+                  <span class="color-text-a">Phone .</span> contact@example.com
+                </li>
+                <li class="color-a">
+                  <span class="color-text-a">Email .</span> +54 356 945234
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">The Company</h3>
+            </div>
+            <div class="w-body-a">
+              <div class="w-body-a">
+                <ul class="list-unstyled">
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#">Site Map</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#">Legal</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#">Agent Admin</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#">Careers</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#">Affiliate</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i>
+                    <a href="#">Privacy Policy</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">International sites</h3>
+            </div>
+            <div class="w-body-a">
+              <ul class="list-unstyled">
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#">Venezuela</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#">China</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#">Hong Kong</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#">Argentina</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#">Singapore</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i>
+                  <a href="#">Philippines</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav class="nav-footer">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="#">Home</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">About</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Property</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Blog</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="socials-a">
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-dribbble" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="copyright-footer">
+            <p class="copyright color-text-a"> &copy; Copyright <span class="color-a">EstateAgency</span> All Rights Reserved. </p>
+          </div>
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
+            --> Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer End /-->
+  <a href="#" class="back-to-top">
+    <i class="fa fa-chevron-up"></i>
+  </a>
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/popper/popper.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+  <script>
+    $('#advanced-options').hide();
+    // toggle advanced options
+    $('#adv-search-btn').click(function() {
+      $('#advanced-options').slideToggle("fast");
+    });
+    $('#adv-filter li').click(function() {
+      $('#adv-filter li.active').removeClass('active');
+      $(this).addClass('active');
+    });
+  </script>
+</body>
+</html>

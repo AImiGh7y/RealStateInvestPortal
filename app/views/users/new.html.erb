@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/css/login.css">
+
+<div class="login-page">
+<div class="form">
+  <%= form_with model: @user, url: users_path, method: :post, html: { class: "login-form" } do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.text_field :name, class: "input-field", placeholder: "name" %>
+    </div>
+
+    <div class="field">
+      <%= f.text_field :email, class: "input-field", placeholder: "email" %>
+    </div>
+
+   <div class="field">
+      <%= f.password_field :password, class: "input-field", placeholder: "password" %>
+    </div>
+  
+    <div class="field">
+      <%= f.password_field :password_confirmation, class: "input-field", placeholder: "password_confirmation" %>
+    </div>
+
+    <button type="submit">
+        Create
+    </button>
+  <% end %>
+      <p class="message">Already registered? <a href="/users/login">Sign In</a></p>
+  </div>
+</div>
+

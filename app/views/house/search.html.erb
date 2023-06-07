@@ -1,0 +1,202 @@
+
+  <%= form_tag search_houses_path, method: :get, autocomplete: "off" do %>
+    <%= text_field_tag :search, params[:search], id: "search", spellcheck: false, placeholder: "Search by localizacao", data: { source: search_suggestions_path } %>
+    <%= select_tag :situacao, options_for_select([['For Rent', 'alugar'], ['For Sale', 'comprar']], params[:situacao]), include_blank: false %>
+    <%= select_tag :type, options_for_select([['Moradia', 'moradias'], ['Apartamento', 'apartamentos']], params[:type]), include_blank: false %>  
+
+    <%= check_box_tag 'Condicao[]', 'Novo', params[:Condicao]&.include?('Novo') %> Novo
+    <%= check_box_tag 'Condicao[]', 'Usado', params[:Condicao]&.include?('Usado') %> Usado
+    <%= check_box_tag 'Condicao[]', 'Recuperado', params[:Condicao]&.include?('Recuperado') %> Recuperado
+    <%= check_box_tag 'Condicao[]', 'Por recuperar', params[:Condicao]&.include?('Por recuperar') %> Por recuperar
+
+    <%= check_box_tag 'Total_quartos[]', '0', params[:Total_quartos]&.include?('0') %> T0
+    <%= check_box_tag 'Total_quartos[]', '1', params[:Total_quartos]&.include?('1') %> T1
+    <%= check_box_tag 'Total_quartos[]', '2', params[:Total_quartos]&.include?('2') %> T2
+    <%= check_box_tag 'Total_quartos[]', '3', params[:Total_quartos]&.include?('3') %> T3
+    <%= check_box_tag 'Total_quartos[]', '4', params[:Total_quartos]&.include?('4') %> T4
+    <%= check_box_tag 'Total_quartos[]', '5', params[:Total_quartos]&.include?('5') %> T5
+    <%= check_box_tag 'Total_quartos[]', '6', params[:Total_quartos]&.include?('6') %> T6
+
+    <%= text_field_tag :min_price, params[:min_price], placeholder: "Minimum Price"%>
+    <%= text_field_tag :max_price, params[:max_price], placeholder: "Maximum Price"%>
+
+    <%= text_field_tag :min_year, params[:min_year], placeholder: "Minimum Year"%>
+    <%= text_field_tag :max_year, params[:max_year], placeholder: "Maximum Year"%>
+    <br>Acesso_Mobilidade_Reduzida
+    <%= select_tag :Acesso_Mobilidade_Reduzida, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Acesso_Mobilidade_Reduzida]), include_blank: true %>
+    <br>Arrecadação
+    <%= select_tag :Arrecadação, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Arrecadação]), include_blank: true %>
+    <br>Elevador
+    <%= select_tag :Elevador, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Elevador]), include_blank: true %>
+    <br>Garagem
+    <%= select_tag :Garagem, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Garagem]), include_blank: true %>
+    <br>Estacionamento
+    <%= select_tag :Estacionamento, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Estacionamento]), include_blank: true %>
+    <br>Jardim
+    <%= select_tag :Jardim, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Jardim]), include_blank: true %>
+    <br>Lareira
+    <%= select_tag :Lareira, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Lareira]), include_blank: true %>
+    <br>Recuperador_de_calor
+    <%= select_tag :Recuperador_de_calor, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Recuperador_de_calor]), include_blank: true %>
+    <br>Vidros_duplos
+    <%= select_tag :Vidros_duplos, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Vidros_duplos]), include_blank: true %>
+    <br>Varanda
+    <%= select_tag :Varanda, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Varanda]), include_blank: true %>
+    <br>Terraço
+    <%= select_tag :Terraço, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Terraço]), include_blank: true %>
+    <br>Suite
+    <%= select_tag :Suite, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Suite]), include_blank: true %>
+    <br>Segurança
+    <%= select_tag :Segurança, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Segurança]), include_blank: true %>
+    <br>Piscina
+    <%= select_tag :Piscina, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Piscina]), include_blank: true %>
+    <br>Painéis_Solares
+    <%= select_tag :Painéis_Solares, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Painéis_Solares]), include_blank: true %>
+    <br>Logradouro
+    <%= select_tag :Logradouro, options_for_select([['Sim', 'TRUE'], ['Nao', 'FALSE']], params[:Logradouro]), include_blank: true %>
+
+
+    <%= submit_tag "Search" %>
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <%= javascript_include_tag 'search' %>
+ <% end %>
+
+  <% if @houses.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th><%= sortable "Id" %></th>
+          <th><%= sortable "Title" %></th>
+          <th>Localizacao</th>
+          <th>Situacao</th>
+          <th>Type</th>
+          <th><%= sortable "Price"%></th>
+          <th>Condicao</th>
+          <th>Numero Quartos</th>
+          <th>Ano</th>
+          <th>Mobilidade Reduzida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @houses.each do |house| %>
+          <tr>
+            <td><%= house.Id %></td>
+            <td><a href = "<%= house.Url %>"><%= house.Title %></a></td>
+            <td><%= house.Localizacao %></td>
+            <td><%= house.Situacao %></td>
+            <td><%= house.Type %></td>
+            <td><%= house.Price %></td>
+            <td><%= house.Condicao %></td>
+            <td><%= house.Total_quartos %></td>
+            <td><%= house.Ano_de_Construcao %></td>
+            <td><%= house.Acesso_Mobilidade_Reduzida %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No results found.</p>
+  <% end %>
+  <%= will_paginate @houses %>
+  <style>
+    #map {
+      width: 100%;
+      height: 600px;
+    }
+  </style>
+  <div id="map"></div>
+  <%= javascript_include_tag 'leaflet' %>
+  <%= javascript_include_tag 'leaflet.draw' %>
+  <%= javascript_include_tag 'populate_selectedmarkers' %>
+  <table id="selected-markers-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  
+  <script>
+    var houseMarkers = [<% @houses_map.select{ |house| house.Latitude.present? && house.Longitude.present? }.each do |house| %>      { Latitude: <%= house.Latitude %>, Longitude: <%= house.Longitude %>, Title: '<%= house.Title %>', Url:  '<%= house.Url %>', Price:  '<%= house.Price %>', Localizacao:  '<%= house.Localizacao %>'},    <% end %>  ];
+
+    var mymap = L.map('map').setView([38.736946, -9.142685], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    }).addTo(mymap);
+
+    for (var i = 0; i < houseMarkers.length; i++) {
+      var marker = L.marker([houseMarkers[i].Latitude, houseMarkers[i].Longitude], {
+        icon: L.icon({
+          iconUrl: '/img/marker-icon.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -35]
+        })
+      });
+
+      var popupContent = "";
+      for (var j = 0; j < houseMarkers.length; j++) {
+        if (houseMarkers[j].Latitude == houseMarkers[i].Latitude &&
+            houseMarkers[j].Longitude == houseMarkers[i].Longitude) {
+          popupContent += "<a href='" + houseMarkers[j].Url + "'>" + houseMarkers[j].Title + "</a>";
+        }
+      }
+
+      marker.bindPopup(popupContent).addTo(mymap);
+    }
+
+    var drawnItems = new L.FeatureGroup();
+    mymap.addLayer(drawnItems);
+
+    var drawControl = new L.Control.Draw({
+      edit: {
+          featureGroup: drawnItems
+      },
+      draw: {
+          polyline: false,
+          polygon: true,
+          rectangle: true,
+          marker: false,
+          circlemarker: false,
+          circle: false
+      }
+    });
+
+
+    mymap.addControl(drawControl);
+
+    mymap.on(L.Draw.Event.CREATED, function(event) {
+      var layer = event.layer;
+      drawnItems.addLayer(layer);
+
+      var bounds = layer.getBounds();
+      var selectedMarkers = houseMarkers.filter(function(marker) {
+        var latlng = L.latLng(marker.Latitude, marker.Longitude);
+        return bounds.contains(latlng);
+      });
+
+      var popupContent = "";
+      for (var i = 0; i < selectedMarkers.length; i++) {
+        popupContent += "<a href='" + selectedMarkers[i].Url + "'>" + selectedMarkers[i].Title + "</a><br>";
+      }
+
+      L.popup()
+        .setLatLng(bounds.getCenter())
+        .setContent(popupContent)
+        .openOn(mymap);
+
+      mymap.on('draw:deleted', function () {
+        drawnItems.clearLayers();
+        document.getElementById("selected-markers-table").getElementsByTagName("tbody")[0].innerHTML = "";
+      });
+
+      populateSelectedMarkersTable(selectedMarkers);
+    });
+  </script>
